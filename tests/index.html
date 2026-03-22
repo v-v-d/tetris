@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris Tests</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.19.4.css">
+</head>
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    
+    <!-- Domain Layer -->
+    <script src="../domain/value-objects/Position.js"></script>
+    <script src="../domain/value-objects/Shape.js"></script>
+    <script src="../domain/value-objects/Color.js"></script>
+    <script src="../domain/entities/Tetromino.js"></script>
+    <script src="../domain/entities/GameBoard.js"></script>
+    <script src="../domain/services/RotationService.js"></script>
+    <script src="../domain/services/CollisionService.js"></script>
+    <script src="../domain/services/LineClearService.js"></script>
+    
+    <!-- Application Layer -->
+    <script src="../application/ScoreCalculator.js"></script>
+    <script src="../application/GameState.js"></script>
+    <script src="../application/GameService.js"></script>
+    
+    <!-- QUnit -->
+    <script src="https://code.jquery.com/qunit/qunit-2.19.4.js"></script>
+    
+    <!-- Test Files -->
+    <script src="domain/Position.test.js"></script>
+    <script src="domain/Shape.test.js"></script>
+    <script src="domain/Color.test.js"></script>
+    <script src="domain/Tetromino.test.js"></script>
+    <script src="domain/GameBoard.test.js"></script>
+    <script src="domain/RotationService.test.js"></script>
+    <script src="domain/CollisionService.test.js"></script>
+    <script src="domain/LineClearService.test.js"></script>
+    <script src="application/ScoreCalculator.test.js"></script>
+    <script src="application/GameState.test.js"></script>
+    <script src="application/GameService.test.js"></script>
+</body>
+</html>
