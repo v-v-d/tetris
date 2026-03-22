@@ -2,7 +2,9 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Tetris</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -40,6 +42,19 @@
                 <p>↓ - Ускорение</p>
                 <p>Пробел - Сброс</p>
             </div>
+            <div class="touch-controls">
+                <div class="touch-row">
+                    <button id="touch-rotate" class="touch-btn rotate-btn">↻</button>
+                </div>
+                <div class="touch-row">
+                    <button id="touch-left" class="touch-btn">←</button>
+                    <button id="touch-down" class="touch-btn">↓</button>
+                    <button id="touch-right" class="touch-btn">→</button>
+                </div>
+                <div class="touch-row">
+                    <button id="touch-drop" class="touch-btn drop-btn">⬇</button>
+                </div>
+            </div>
         </div>
         <div class="game-board">
             <canvas id="game-board" width="300" height="600"></canvas>
@@ -73,6 +88,7 @@
     <script src="infrastructure/repositories/InMemoryGameRepository.js"></script>
     <script src="infrastructure/renderers/CanvasRenderer.js"></script>
     <script src="infrastructure/input/KeyboardInputHandler.js"></script>
+    <script src="infrastructure/input/TouchInputHandler.js"></script>
 
     <!-- Presentation Layer -->
     <script src="presentation/GameController.js"></script>

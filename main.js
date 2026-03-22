@@ -39,13 +39,19 @@ function initGame() {
         () => gameController.pause()
     );
     
-    // Create game controller
+    // Create game controller (without touch handler initially)
     const gameController = new GameController(
         gameService,
         boardRenderer,
         nextPieceRenderer,
         inputHandler
     );
+    
+    // Create touch input handler (requires gameController to be created first)
+    const touchInputHandler = new TouchInputHandler(gameController);
+    
+    // Update game controller with touch input handler
+    gameController._touchInputHandler = touchInputHandler;
     
     // Setup button handlers
     const startButton = document.getElementById('start-button');

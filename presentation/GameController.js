@@ -9,12 +9,14 @@ class GameController {
      * @param {CanvasRenderer} boardRenderer - Board renderer
      * @param {CanvasRenderer} nextPieceRenderer - Next piece renderer
      * @param {KeyboardInputHandler} inputHandler - Input handler
+     * @param {TouchInputHandler} touchInputHandler - Touch input handler (optional)
      */
-    constructor(gameService, boardRenderer, nextPieceRenderer, inputHandler) {
+    constructor(gameService, boardRenderer, nextPieceRenderer, inputHandler, touchInputHandler = null) {
         this._gameService = gameService;
         this._boardRenderer = boardRenderer;
         this._nextPieceRenderer = nextPieceRenderer;
         this._inputHandler = inputHandler;
+        this._touchInputHandler = touchInputHandler;
         this._gameLoop = null;
         this._lastTime = 0;
     }
@@ -24,6 +26,12 @@ class GameController {
      */
     init() {
         this._inputHandler.setup();
+        
+        // Initialize touch input handler if available
+        if (this._touchInputHandler) {
+            this._touchInputHandler.initialize();
+        }
+        
         this._render();
     }
 
@@ -200,5 +208,10 @@ class GameController {
     destroy() {
         this._stopGameLoop();
         this._inputHandler.teardown();
+        
+        // Destroy touch input handler if available
+        if (this._touchInputHandler) {
+            this._touchInputHandler.destroy();
+        }
     }
 }
