@@ -5,19 +5,23 @@
 class Tetromino {
     /**
      * @param {Shape} shape - Shape of the tetromino
+     * @param {Color} color - Color of the tetromino
      * @param {Position} position - Position on the board
      */
-    constructor(shape, position) {
+    constructor(shape, color, position) {
         if (!(shape instanceof Shape)) {
             throw new Error('Tetromino must have a Shape');
+        }
+        if (!(color instanceof Color)) {
+            throw new Error('Tetromino must have a Color');
         }
         if (!(position instanceof Position)) {
             throw new Error('Tetromino must have a Position');
         }
         
         this._shape = shape;
+        this._color = color;
         this._position = position;
-        this._color = Color.forType(shape.type);
     }
 
     get shape() {
@@ -55,12 +59,21 @@ class Tetromino {
     }
 
     /**
+     * Alias for getOccupiedCells
+     * @returns {Position[]} Array of positions
+     */
+    getCells() {
+        return this.getOccupiedCells();
+    }
+
+    /**
      * Creates a new tetromino with rotated shape
      * @returns {Tetromino}
      */
     rotate() {
         return new Tetromino(
             this._shape.rotate(),
+            this._color,
             this._position
         );
     }
@@ -74,8 +87,33 @@ class Tetromino {
     move(dx, dy) {
         return new Tetromino(
             this._shape,
+            this._color,
             this._position.offset(dx, dy)
         );
+    }
+
+    /**
+     * Creates a new tetromino moved left
+     * @returns {Tetromino}
+     */
+    moveLeft() {
+        return this.move(-1, 0);
+    }
+
+    /**
+     * Creates a new tetromino moved right
+     * @returns {Tetromino}
+     */
+    moveRight() {
+        return this.move(1, 0);
+    }
+
+    /**
+     * Creates a new tetromino moved down
+     * @returns {Tetromino}
+     */
+    moveDown() {
+        return this.move(0, 1);
     }
 
     /**
@@ -86,6 +124,7 @@ class Tetromino {
     moveTo(newPosition) {
         return new Tetromino(
             this._shape,
+            this._color,
             newPosition
         );
     }
@@ -98,6 +137,7 @@ class Tetromino {
     withShape(newShape) {
         return new Tetromino(
             newShape,
+            this._color,
             this._position
         );
     }
@@ -111,7 +151,8 @@ class Tetromino {
         const types = Shape.TYPES;
         const randomType = types[Math.floor(Math.random() * types.length)];
         const shape = new Shape(randomType);
-        return new Tetromino(shape, position);
+        const color = Color.forType(randomType);
+        return new Tetromino(shape, color, position);
     }
 
     /**
@@ -122,7 +163,8 @@ class Tetromino {
      */
     static create(type, position) {
         const shape = new Shape(type);
-        return new Tetromino(shape, position);
+        const color = Color.forType(type);
+        return new Tetromino(shape, color, position);
     }
 
     /**
@@ -145,6 +187,7 @@ class Tetromino {
     clone() {
         return new Tetromino(
             this._shape.clone(),
+            this._color.clone(),
             this._position.clone()
         );
     }

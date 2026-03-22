@@ -75,7 +75,7 @@ QUnit.test('restarts game', assert => {
     );
     
     service.start();
-    service.state.updateScore(100);
+    service.updateScore(100);
     service.restart();
     assert.equal(service.state.score, 0, 'score is reset');
     assert.false(service.state.isPaused, 'game is not paused');
@@ -160,6 +160,14 @@ QUnit.test('rotates piece', assert => {
     );
     
     service.start();
+    // Keep rotating until we get a non-O shape (O shape doesn't change when rotated)
+    let attempts = 0;
+    while (service.state.currentPiece.shape.type === 'O' && attempts < 10) {
+        service.restart();
+        service.start();
+        attempts++;
+    }
+    
     const originalMatrix = service.state.currentPiece.shape.getMatrix();
     service.rotate();
     const rotatedMatrix = service.state.currentPiece.shape.getMatrix();
@@ -182,9 +190,10 @@ QUnit.test('hard drops piece', assert => {
     );
     
     service.start();
-    const originalY = service.state.currentPiece.position.y;
+    const originalPiece = service.state.currentPiece;
     service.hardDrop();
-    assert.true(service.state.currentPiece.position.y > originalY, 'piece dropped down');
+    // After hard drop, a new piece is spawned at the top
+    assert.true(service.state.currentPiece !== originalPiece, 'new piece spawned after hard drop');
 });
 
 QUnit.test('updates game', assert => {

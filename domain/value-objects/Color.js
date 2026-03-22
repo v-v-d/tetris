@@ -28,6 +28,15 @@ class Color {
         L: new Color('#f0a000')
     };
 
+    // Static color instances for convenience
+    static I = new Color('#00FFFF');
+    static O = new Color('#FFFF00');
+    static T = new Color('#800080');
+    static S = new Color('#00FF00');
+    static Z = new Color('#FF0000');
+    static J = new Color('#0000FF');
+    static L = new Color('#FFA500');
+
     /**
      * Gets color for tetromino type
      * @param {string} type - Tetromino type
@@ -71,6 +80,6 @@ class Color {
     }
 
     toString() {
-        return `Color(${this._hex})`;
+        return this._hex;
     }
 }

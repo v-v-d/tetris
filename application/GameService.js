@@ -296,4 +296,14 @@ class GameService {
     getDropInterval() {
         return this._scoreCalculator.calculateDropInterval(this._state.level);
     }
+
+    /**
+     * Updates the score (for testing purposes)
+     * @param {number} points - Points to add
+     * @returns {GameState}
+     */
+    updateScore(points) {
+        this._state = this._state.withScoreAdded(points);
+        return this._state;
+    }
 }

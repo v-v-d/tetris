@@ -4,21 +4,22 @@
  */
 class LineClearService {
     /**
-     * Clears all full rows from the board
+     * Clears rows from the board
      * @param {GameBoard} board - Game board
+     * @param {number[]} [rows] - Optional array of row indices to clear (if not provided, clears all full rows)
      * @returns {number} Number of lines cleared
      */
-    clearLines(board) {
-        const fullRows = board.getFullRows();
+    clearLines(board, rows) {
+        const rowsToClear = rows || board.getFullRows();
         
         // Sort in descending order to remove from bottom to top
-        fullRows.sort((a, b) => b - a);
+        rowsToClear.sort((a, b) => b - a);
         
-        for (const row of fullRows) {
+        for (const row of rowsToClear) {
             board.removeRow(row);
         }
         
-        return fullRows.length;
+        return rowsToClear.length;
     }
 
     /**
@@ -46,6 +47,15 @@ class LineClearService {
      */
     getFullRowIndices(board) {
         return board.getFullRows();
+    }
+
+    /**
+     * Alias for getFullRowIndices
+     * @param {GameBoard} board - Game board
+     * @returns {number[]} Array of row indices
+     */
+    findCompleteLines(board) {
+        return this.getFullRowIndices(board);
     }
 
     /**

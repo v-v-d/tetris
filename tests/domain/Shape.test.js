@@ -84,6 +84,6 @@ QUnit.test('getAllShapes returns all 7 shapes', assert => {
 
 QUnit.test('createRandom returns a valid shape', assert => {
     const shape = Shape.createRandom();
-    const allShapes = Shape.getAllShapes();
-    assert.true(allShapes.includes(shape), 'random shape is valid');
+    const allTypes = Shape.TYPES;
+    assert.true(allTypes.includes(shape.type), 'random shape type is valid');
 });

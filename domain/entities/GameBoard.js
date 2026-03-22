@@ -42,50 +42,122 @@ class GameBoard {
 
     /**
      * Gets the color at a specific position
-     * @param {Position} position
+     * @param {Position|number} positionOrX - Position object or x coordinate
+     * @param {number} y - Y coordinate (if x is provided)
      * @returns {Color|null}
      */
-    getCell(position) {
-        if (!this.isValidPosition(position)) {
+    getCell(positionOrX, y) {
+        let x, yPos;
+        
+        if (typeof positionOrX === 'number') {
+            x = positionOrX;
+            yPos = y;
+        } else {
+            x = positionOrX.x;
+            yPos = positionOrX.y;
+        }
+        
+        if (!this.isValidPositionXY(x, yPos)) {
             return null;
         }
-        return this._grid[position.y][position.x];
+        return this._grid[yPos][x];
     }
 
     /**
      * Sets the color at a specific position
-     * @param {Position} position
-     * @param {Color|null} color
+     * @param {Position|number} positionOrX - Position object or x coordinate
+     * @param {Color|null|number} colorOrY - Color object or y coordinate
+     * @param {Color|null} color - Color object (if x and y are provided)
      */
-    setCell(position, color) {
-        if (!this.isValidPosition(position)) {
+    setCell(positionOrX, colorOrY, color) {
+        let x, yPos, cellColor;
+        
+        if (typeof positionOrX === 'number') {
+            x = positionOrX;
+            yPos = colorOrY;
+            cellColor = color;
+        } else {
+            x = positionOrX.x;
+            yPos = positionOrX.y;
+            cellColor = colorOrY;
+        }
+        
+        if (!this.isValidPositionXY(x, yPos)) {
             throw new Error('Invalid position');
         }
-        this._grid[position.y][position.x] = color;
+        this._grid[yPos][x] = cellColor;
+    }
+
+    /**
+     * Clears a cell at a specific position
+     * @param {Position|number} positionOrX - Position object or x coordinate
+     * @param {number} y - Y coordinate (if x is provided)
+     */
+    clearCell(positionOrX, y) {
+        let x, yPos;
+        
+        if (typeof positionOrX === 'number') {
+            x = positionOrX;
+            yPos = y;
+        } else {
+            x = positionOrX.x;
+            yPos = positionOrX.y;
+        }
+        
+        this.setCell(x, yPos, null);
     }
 
     /**
      * Checks if a position is within board bounds
-     * @param {Position} position
+     * @param {Position|number} positionOrX - Position object or x coordinate
+     * @param {number} y - Y coordinate (if x is provided)
      * @returns {boolean}
      */
-    isValidPosition(position) {
-        return position.x >= 0 && 
-               position.x < this._width && 
-               position.y >= 0 && 
-               position.y < this._height;
+    isValidPosition(positionOrX, y) {
+        let x, yPos;
+        
+        if (typeof positionOrX === 'number') {
+            x = positionOrX;
+            yPos = y;
+        } else {
+            x = positionOrX.x;
+            yPos = positionOrX.y;
+        }
+        
+        return this.isValidPositionXY(x, yPos);
+    }
+
+    /**
+     * Checks if x,y coordinates are within board bounds
+     * @param {number} x
+     * @param {number} y
+     * @returns {boolean}
+     */
+    isValidPositionXY(x, y) {
+        return x >= 0 && x < this._width && y >= 0 && y < this._height;
     }
 
     /**
      * Checks if a position is empty
-     * @param {Position} position
+     * @param {Position|number} positionOrX - Position object or x coordinate
+     * @param {number} y - Y coordinate (if x is provided)
      * @returns {boolean}
      */
-    isEmpty(position) {
-        if (!this.isValidPosition(position)) {
+    isEmpty(positionOrX, y) {
+        let x, yPos;
+        
+        if (typeof positionOrX === 'number') {
+            x = positionOrX;
+            yPos = y;
+        } else {
+            x = positionOrX.x;
+            yPos = positionOrX.y;
+        }
+        
+        if (!this.isValidPositionXY(x, yPos)) {
             return false;
         }
-        return this._grid[position.y][position.x] === null;
+        return this._grid[yPos][x] === null;
     }
 
     /**

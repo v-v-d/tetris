@@ -14,6 +14,16 @@ class CollisionService {
     }
 
     /**
+     * Alias for hasCollision
+     * @param {Tetromino} tetromino - Tetromino to check
+     * @param {GameBoard} board - Game board
+     * @returns {boolean}
+     */
+    checkCollision(tetromino, board) {
+        return this.hasCollision(tetromino, board);
+    }
+
+    /**
      * Checks if a tetromino can move in a direction
      * @param {Tetromino} tetromino - Current tetromino
      * @param {GameBoard} board - Game board

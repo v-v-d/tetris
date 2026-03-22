@@ -149,6 +149,15 @@ class GameState {
     }
 
     /**
+     * Creates a new game state with updated score
+     * @param {number} points - Points to add
+     * @returns {GameState}
+     */
+    withScoreAdded(points) {
+        return this.withScore(this._score + points);
+    }
+
+    /**
      * Creates a new game state with updated level
      * @param {number} level
      * @returns {GameState}
@@ -287,5 +296,58 @@ class GameState {
             this._isPaused,
             this._isStarted
         );
+    }
+
+    /**
+     * Sets game over flag
+     */
+    setGameOver() {
+        this._isGameOver = true;
+    }
+
+    /**
+     * Toggles pause state
+     */
+    togglePause() {
+        this._isPaused = !this._isPaused;
+    }
+
+    /**
+     * Updates the score by adding points (mutable version)
+     * @param {number} points - Points to add
+     */
+    updateScore(points) {
+        this._score += points;
+    }
+
+    /**
+     * Updates the level (mutable version)
+     * @param {number} level - New level
+     */
+    updateLevel(level) {
+        this._level = level;
+    }
+
+    /**
+     * Updates the lines (mutable version)
+     * @param {number} lines - New lines count
+     */
+    updateLines(lines) {
+        this._lines = lines;
+    }
+
+    /**
+     * Resets the state to initial values
+     */
+    reset() {
+        this._score = 0;
+        this._level = 1;
+        this._lines = 0;
+        this._isGameOver = false;
+        this._isPaused = false;
+        this._isStarted = false;
+        this._currentPiece = null;
+        this._nextPiece = null;
+        this._board.clear();
     }
 }

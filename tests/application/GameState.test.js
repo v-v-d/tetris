@@ -12,7 +12,7 @@ QUnit.test('creates initial game state', assert => {
 
 QUnit.test('creates state with custom values', assert => {
     const board = new GameBoard(10, 20);
-    const state = new GameState(board, 100, 2, 10);
+    const state = new GameState(board, null, null, 100, 2, 10);
     assert.equal(state.score, 100, 'score is 100');
     assert.equal(state.level, 2, 'level is 2');
     assert.equal(state.lines, 10, 'lines is 10');

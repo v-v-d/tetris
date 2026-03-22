@@ -20,20 +20,20 @@ QUnit.test('creates position with negative coordinates', assert => {
 
 QUnit.test('moves position by dx and dy', assert => {
     const position = new Position(5, 10);
-    const moved = position.move(2, 3);
+    const moved = position.offset(2, 3);
     assert.equal(moved.x, 7, 'x coordinate is updated');
     assert.equal(moved.y, 13, 'y coordinate is updated');
 });
 
-QUnit.test('move returns new position instance', assert => {
+QUnit.test('offset returns new position instance', assert => {
     const position = new Position(5, 10);
-    const moved = position.move(1, 1);
-    assert.notStrictEqual(position, moved, 'move returns new instance');
+    const moved = position.offset(1, 1);
+    assert.notStrictEqual(position, moved, 'offset returns new instance');
 });
 
 QUnit.test('moves position with negative deltas', assert => {
     const position = new Position(5, 10);
-    const moved = position.move(-2, -3);
+    const moved = position.offset(-2, -3);
     assert.equal(moved.x, 3, 'x coordinate is decreased');
     assert.equal(moved.y, 7, 'y coordinate is decreased');
 });

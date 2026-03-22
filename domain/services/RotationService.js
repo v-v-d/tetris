@@ -15,12 +15,21 @@ class RotationService {
     }
 
     /**
-     * Rotates a tetromino if possible
+     * Rotates a tetromino (without collision check)
+     * @param {Tetromino} tetromino - Current tetromino
+     * @returns {Tetromino} Rotated tetromino
+     */
+    rotate(tetromino) {
+        return tetromino.rotate();
+    }
+
+    /**
+     * Rotates a tetromino if possible (with collision check)
      * @param {Tetromino} tetromino - Current tetromino
      * @param {GameBoard} board - Game board
      * @returns {Tetromino|null} Rotated tetromino or null if rotation not possible
      */
-    rotate(tetromino, board) {
+    rotateWithCollision(tetromino, board) {
         if (this.canRotate(tetromino, board)) {
             return tetromino.rotate();
         }

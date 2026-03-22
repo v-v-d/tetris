@@ -55,13 +55,15 @@ QUnit.test('getCells returns correct cells', assert => {
 });
 
 QUnit.test('creates random tetromino', assert => {
-    const tetromino = Tetromino.createRandom();
-    const allShapes = Shape.getAllShapes();
-    assert.true(allShapes.includes(tetromino.shape), 'random tetromino has valid shape');
+    const position = new Position(5, 0);
+    const tetromino = Tetromino.createRandom(position);
+    const allTypes = Shape.TYPES;
+    assert.true(allTypes.includes(tetromino.shape.type), 'random tetromino has valid shape type');
 });
 
 QUnit.test('random tetromino has correct color', assert => {
-    const tetromino = Tetromino.createRandom();
-    const allColors = [Color.I, Color.O, Color.T, Color.S, Color.Z, Color.J, Color.L];
-    assert.true(allColors.includes(tetromino.color), 'random tetromino has valid color');
+    const position = new Position(5, 0);
+    const tetromino = Tetromino.createRandom(position);
+    const allColors = Object.values(Color.COLORS);
+    assert.true(allColors.some(c => c.equals(tetromino.color)), 'random tetromino has valid color');
 });
